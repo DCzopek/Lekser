@@ -13,10 +13,11 @@ namespace Lekser
 
         private static List<Token> FindToken()
         {
+            int position = 0;
+            List<Token> tokens = new List<Token>();
+
             Console.WriteLine("wprowadz tekst: ");
             Message = Console.ReadLine();
-
-            List<Token> tokens = new List<Token>();
 
             Console.WriteLine(Message);
 
@@ -24,6 +25,7 @@ namespace Lekser
             {
                 if (IsWhitespace(Message))
                 {
+                    position += GetWhitespace(Message).Length;
                     trimMessage(GetWhitespace(Message).Length);
                 }
                 else if (IsBracket(Message))
@@ -33,6 +35,7 @@ namespace Lekser
                             TokenType.Bracket,
                             GetBracket(Message)
                         ));
+                    position += GetBracket(Message).Length;
                     trimMessage(GetBracket(Message).Length);
                 }
                 else if (IsOperator(Message))
@@ -42,6 +45,7 @@ namespace Lekser
                             TokenType.Operator,
                             GetOperator(Message)
                         ));
+                    position += GetOperator(Message).Length;
                     trimMessage(GetOperator(Message).Length);
                 }
                 else if (IsIdentifier(Message))
@@ -51,6 +55,7 @@ namespace Lekser
                             TokenType.Identifier,
                             GetIdentifier(Message)
                         ));
+                    position += GetIdentifier(Message).Length;
                     trimMessage(GetIdentifier(Message).Length);
                 }
                 else if (IsNumber(Message))
@@ -62,6 +67,7 @@ namespace Lekser
                                 TokenType.Double,
                                 GetDouble(Message)
                             ));
+                        position += GetDouble(Message).Length;
                         trimMessage(GetDouble(Message).Length);
                     }
                     else
@@ -71,13 +77,17 @@ namespace Lekser
                                 TokenType.Int,
                                 GetNumber(Message)
                             ));
+                        position += GetNumber(Message).Length;
                         trimMessage(GetNumber(Message).Length);
                     }
                 }
                 else
                 {
+                    Console.WriteLine($"Program finds undefined symbol :  {Message.First()} on position {position}");
+                    position++;
                     trimMessage(1);
                 }
+
             }
 
             return tokens;
@@ -162,13 +172,13 @@ namespace Lekser
 
         private static string GetOperator(string symbol)
         {
-            var operatorPattern = @"^[-+*\/\\=]+";
+            var operatorPattern = @"^[-+*\/\\=]";
             return Regex.Match(symbol, operatorPattern).ToString();
         }
 
         private static bool IsOperator(string symbol)
         {
-            var operatorPattern = @"^[-+*\/\\=]+";
+            var operatorPattern = @"^[-+*\/\\=]";
             return Regex.IsMatch(symbol, operatorPattern);
         }
 
