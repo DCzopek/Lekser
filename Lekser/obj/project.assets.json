@@ -686,30 +686,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\czope\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/home/dczopek/.nuget/packages/": {},
+    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\czope\\source\\repos\\Lekser\\Lekser\\Lekser.csproj",
+      "projectUniqueName": "/home/dczopek/RiderProjects/Lekser/Lekser/Lekser.csproj",
       "projectName": "Lekser",
-      "projectPath": "C:\\Users\\czope\\source\\repos\\Lekser\\Lekser\\Lekser.csproj",
-      "packagesPath": "C:\\Users\\czope\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\czope\\source\\repos\\Lekser\\Lekser\\obj\\",
+      "projectPath": "/home/dczopek/RiderProjects/Lekser/Lekser/Lekser.csproj",
+      "packagesPath": "/home/dczopek/.nuget/packages/",
+      "outputPath": "/home/dczopek/RiderProjects/Lekser/Lekser/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\czope\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/dczopek/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

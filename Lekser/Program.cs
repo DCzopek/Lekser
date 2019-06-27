@@ -11,7 +11,7 @@ namespace Lekser
         public static string Message { get; set; }
 
 
-        private static List<Token> FindToken()
+        private static List<Token> FindTokens()
         {
             int position = 0;
             List<Token> tokens = new List<Token>();
@@ -83,11 +83,8 @@ namespace Lekser
                 }
                 else
                 {
-                    Console.WriteLine($"Program finds undefined symbol :  {Message.First()} on position {position}");
-                    position++;
-                    trimMessage(1);
+                    throw new Exception($"Exception: Program finds undefined symbol :  {Message.First()} on position {position}");
                 }
-
             }
 
             return tokens;
@@ -184,10 +181,23 @@ namespace Lekser
 
         static void Main(string[] args)
         {
-            while (true)
+            Interpreter interpreter = new Interpreter();
+
+            try
             {
-                DisplayTokens(FindToken());
+                Console.WriteLine(
+                    interpreter.IsValidExpression(FindTokens())
+                );
             }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+//            while (true)
+//            {
+//                DisplayTokens(FindTokens());
+//            }
         }
     }
 }
