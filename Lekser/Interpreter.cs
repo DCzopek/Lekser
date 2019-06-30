@@ -44,7 +44,7 @@ namespace Lekser
 
             if (index == 0)
             {
-                throw new Exception("Exception: Expression starts with not expected operator !");
+                throw new Exception($"Exception: Expression starts with not expected operator at index: {index}!");
             }
 
             if (!(isNumber(tokens[index - 1]) || isIdentifier(tokens[index - 1])))
@@ -55,7 +55,7 @@ namespace Lekser
                 }
                 else
                 {
-                    throw new Exception("Exception: Not expected token !");
+                    throw new Exception($"Exception: Not expected token at index: {index}!");
                 }
             }
             else
@@ -74,11 +74,9 @@ namespace Lekser
                     tokens[index - 2].Type == TokenType.Double ||
                     tokens[index - 2].Type == TokenType.Identifier)
                 {
-                    throw new Exception("Exception: Missing operator between elements !");
-                }    
+                    throw new Exception($"Exception: Missing operator between elements at index: {index}!");
+                }
             }
-
-            
 
             return true;
         }
@@ -98,7 +96,7 @@ namespace Lekser
             var equalOperatorCount =
                 tokens.FindAll(x => x.Type == TokenType.Operator && x.Value == "=").Count;
 
-            return equalOperatorCount == 1;
+            return equalOperatorCount <= 1;
         }
 
         private bool BracketsMatch(List<Token> tokens)
@@ -106,7 +104,7 @@ namespace Lekser
             var brackets = tokens.FindAll(x => x.Type == TokenType.Bracket);
 
             if (brackets.Count == 0) return true;
-            
+
             int leftBracketsCount =
                 tokens.FindAll(x =>
                         x.Type == TokenType.Bracket && x.Value == "("

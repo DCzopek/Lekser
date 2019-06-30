@@ -185,9 +185,10 @@ namespace Lekser
 
             try
             {
-                Console.WriteLine(
-                    interpreter.IsValidExpression(FindTokens())
-                );
+                if (interpreter.IsValidExpression(FindTokens()))
+                {
+                    Console.WriteLine("Wyrażenie poprawne");
+                }
             }
             catch(Exception e)
             {
