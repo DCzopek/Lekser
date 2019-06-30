@@ -33,7 +33,17 @@ namespace Lekser
         private bool CheckToken(List<Token> tokens, int index)
         {
             if (tokens[index].Type != TokenType.Operator)
+            {
+                if (index != 0 && tokens[index].Type != TokenType.Bracket)
+                {
+                    if (tokens[index - 1].Type == tokens[index].Type)
+                    {
+                        throw new Exception($"Exception: Missing operator between elements at index: {index}!");
+                    }
+                }
+
                 return true;
+            }
 
             if (tokens[index].Type == TokenType.Bracket)
             {
@@ -43,7 +53,8 @@ namespace Lekser
 
             if (index == 0)
             {
-                throw new Exception($"Exception: Expression starts with not expected operator at index: {index}!");
+                throw new Exception(
+                    $"Exception: Expression starts with not expected operator at index: {index}!");
             }
 
             if (!(isNumber(tokens[index - 1]) || isIdentifier(tokens[index - 1])))
@@ -73,7 +84,8 @@ namespace Lekser
                     tokens[index - 2].Type == TokenType.Double ||
                     tokens[index - 2].Type == TokenType.Identifier)
                 {
-                    throw new Exception($"Exception: Missing operator between elements at index: {index}!");
+                    throw new Exception(
+                        $"Exception: Missing operator between elements at index: {index}!");
                 }
             }
 

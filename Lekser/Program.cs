@@ -27,7 +27,7 @@ namespace Lekser
                 if (IsWhitespace(Message))
                 {
                     position += GetWhitespace(Message).Length;
-                    trimMessage(GetWhitespace(Message).Length);
+                    TrimMessage(GetWhitespace(Message).Length);
                 }
                 else if (IsBracket(Message))
                 {
@@ -37,7 +37,7 @@ namespace Lekser
                             GetBracket(Message)
                         ));
                     position += GetBracket(Message).Length;
-                    trimMessage(GetBracket(Message).Length);
+                    TrimMessage(GetBracket(Message).Length);
                 }
                 else if (IsOperator(Message))
                 {
@@ -47,7 +47,7 @@ namespace Lekser
                             GetOperator(Message)
                         ));
                     position += GetOperator(Message).Length;
-                    trimMessage(GetOperator(Message).Length);
+                    TrimMessage(GetOperator(Message).Length);
                 }
                 else if (IsIdentifier(Message))
                 {
@@ -57,7 +57,7 @@ namespace Lekser
                             GetIdentifier(Message)
                         ));
                     position += GetIdentifier(Message).Length;
-                    trimMessage(GetIdentifier(Message).Length);
+                    TrimMessage(GetIdentifier(Message).Length);
                 }
                 else if (IsNumber(Message))
                 {
@@ -69,7 +69,7 @@ namespace Lekser
                                 GetDouble(Message)
                             ));
                         position += GetDouble(Message).Length;
-                        trimMessage(GetDouble(Message).Length);
+                        TrimMessage(GetDouble(Message).Length);
                     }
                     else
                     {
@@ -79,7 +79,7 @@ namespace Lekser
                                 GetNumber(Message)
                             ));
                         position += GetNumber(Message).Length;
-                        trimMessage(GetNumber(Message).Length);
+                        TrimMessage(GetNumber(Message).Length);
                     }
                 }
                 else
@@ -102,7 +102,7 @@ namespace Lekser
             }
         }
 
-        private static void trimMessage(int trimLength)
+        private static void TrimMessage(int trimLength)
         {
             Message = Message.Substring(trimLength);
         }
@@ -181,7 +181,7 @@ namespace Lekser
             return Regex.IsMatch(symbol, operatorPattern);
         }
 
-        private static void checkValidation(Interpreter interpreter, string expression)
+        private static void CheckValidation(Interpreter interpreter, string expression)
         {
             try
             {
@@ -206,7 +206,7 @@ namespace Lekser
 
             foreach (var example in TestData.Examples)
             {
-                checkValidation(interpreter, example);
+                CheckValidation(interpreter, example);
             }
         }
     }
