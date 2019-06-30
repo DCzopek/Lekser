@@ -7,10 +7,9 @@ namespace Lekser
 {
     public class Interpreter
     {
-        // (20 - (30 + 20)) = 30 
         public bool IsValidExpression(List<Token> tokens)
         {
-            if (!equalsOperatorMatch(tokens))
+            if (!EqualsOperatorMatch(tokens))
             {
                 throw new Exception("Exception: Equals operator error !");
             }
@@ -22,7 +21,7 @@ namespace Lekser
 
             for (int i = 0; i < tokens.Count; i++)
             {
-                if (!checkToken(tokens, i))
+                if (!CheckToken(tokens, i))
                 {
                     return true;
                 }
@@ -31,7 +30,7 @@ namespace Lekser
             return true;
         }
 
-        bool checkToken(List<Token> tokens, int index)
+        private bool CheckToken(List<Token> tokens, int index)
         {
             if (tokens[index].Type != TokenType.Operator)
                 return true;
@@ -39,7 +38,7 @@ namespace Lekser
             if (tokens[index].Type == TokenType.Bracket)
             {
                 if (index == 0) return true;
-                checkToken(tokens, index - 1);
+                CheckToken(tokens, index - 1);
             }
 
             if (index == 0)
@@ -51,7 +50,7 @@ namespace Lekser
             {
                 if (tokens[index - 1].Type == TokenType.Bracket)
                 {
-                    checkToken(tokens, index - 1);
+                    CheckToken(tokens, index - 1);
                 }
                 else
                 {
@@ -91,12 +90,12 @@ namespace Lekser
             return token.Type == TokenType.Identifier;
         }
 
-        private bool equalsOperatorMatch(List<Token> tokens)
+        private bool EqualsOperatorMatch(List<Token> tokens)
         {
             var equalOperatorCount =
                 tokens.FindAll(x => x.Type == TokenType.Operator && x.Value == "=").Count;
 
-            return equalOperatorCount <= 1;
+            return equalOperatorCount <= 0;
         }
 
         private bool BracketsMatch(List<Token> tokens)

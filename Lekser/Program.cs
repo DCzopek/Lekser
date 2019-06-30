@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 
 namespace Lekser
@@ -11,14 +10,16 @@ namespace Lekser
         public static string Message { get; set; }
 
 
-        private static List<Token> FindTokens()
+        private static List<Token> FindTokens(string expression)
         {
             int position = 0;
             List<Token> tokens = new List<Token>();
 
-            Console.WriteLine("wprowadz tekst: ");
-            Message = Console.ReadLine();
+            // uncomment to pass your expression by hand
+//            Console.WriteLine("wprowadz tekst: ");
+//            Message = Console.ReadLine();
 
+            Message = expression;
             Console.WriteLine(Message);
 
             while (!string.IsNullOrEmpty(Message))
@@ -83,7 +84,8 @@ namespace Lekser
                 }
                 else
                 {
-                    throw new Exception($"Exception: Program finds undefined symbol :  {Message.First()} on position {position}");
+                    throw new Exception(
+                        $"Exception: Program finds undefined symbol :  {Message.First()} on position {position}");
                 }
             }
 
@@ -175,30 +177,37 @@ namespace Lekser
 
         private static bool IsOperator(string symbol)
         {
-            var operatorPattern = @"^[-+*\/\\=]";
+            var operatorPattern = @"^[-+*\/]";
             return Regex.IsMatch(symbol, operatorPattern);
+        }
+
+        private static void checkValidation(Interpreter interpreter, string expression)
+        {
+            try
+            {
+                if (interpreter.IsValidExpression(FindTokens(expression)))
+                {
+                    Console.WriteLine("Wyrażenie poprawne");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         static void Main(string[] args)
         {
             Interpreter interpreter = new Interpreter();
 
-            try
-            {
-                if (interpreter.IsValidExpression(FindTokens()))
-                {
-                    Console.WriteLine("Wyrażenie poprawne");
-                }
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
 
-//            while (true)
-//            {
-//                DisplayTokens(FindTokens());
-//            }
+            // use this method to check if expression is valid 
+            // second parameter is the expression you want to check
+
+            foreach (var example in TestData.Examples)
+            {
+                checkValidation(interpreter, example);
+            }
         }
     }
 }
